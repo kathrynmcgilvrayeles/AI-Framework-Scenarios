@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI in L&D - Interactive Scenarios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* New Tab Styles */
+        .tab-button {
+            background-color: #e5e7eb; /* gray-200 */
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-bottom: none;
+            border-radius: 0.5rem 0.5rem 0 0; /* rounded top corners */
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            color: #4b5563; /* gray-600 */
+            margin-bottom: -1px; /* Overlap the container's bottom border */
+            transition: all 0.2s ease-in-out;
+        }
+        .tab-button:not(.active):hover {
+            background-color: #f3f4f6; /* gray-100 */
+            color: #111827; /* gray-900 */
+        }
+        .tab-button.active {
+            background-color: #ed0000;
+            color: #ffffff;
+            border-color: #ed0000;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .reasoning-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #cbd5e1;
+        }
+        .brand-red-text {
+            color: #ed0000;
+        }
+        .brand-red-header {
+            color: #c50000;
+        }
+        .context-box {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 0 0.75rem 0.75rem 0.75rem; /* Adjust rounding for new tabs */
+            border: 1px solid #d1d5db;
+            border-top: none;
+            margin-bottom: 2rem;
+        }
+        .prompt {
+            background-color: #f9fafb;
+            border-left: 3px solid #ed0000;
+            padding: 0.75rem 1rem;
+            font-style: italic;
+            color: #374151;
+            margin-top: 0.5rem;
+            border-radius: 0.25rem;
+        }
+        /* Phase Button Styles */
+        .phase-button {
+            background-color: #fff;
+            border: 1px solid #d1d5db;
+            color: #374151;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px; /* Pill shape */
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+        .phase-button:hover:not(.active-button) {
+            background-color: #fef2f2;
+            border-color: #ed0000;
+            color: #c50000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .phase-button.active-button {
+            background-color: #ed0000;
+            border-color: #c50000;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            animation-name: fadeIn;
+            animation-duration: 0.4s
+        }
+        .modal-content {
+            position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 90%;
+            max-width: 500px;
+            background-color: #fff;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            animation-name: slideIn;
+            animation-duration: 0.4s
+        }
+        .modal-content::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -15px;
+            width: 0;
+            height: 0;
+            border-top: solid 15px #fff;
+            border-left: solid 15px transparent;
+            border-right: solid 15px transparent;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+        }
+        @keyframes slideIn {
+            from {top: -300px; opacity: 0}
+            to {top: 50%; opacity: 1}
+        }
+        @keyframes fadeIn {
+            from {opacity: 0} 
+            to {opacity: 1}
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-black">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold brand-red-header">Applying the Governance Framework to L&D activities</h1>
+            <p class="mt-2 text-lg text-gray-700">Select the scenario and explore how this AI tool aligns with the framework.</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div id="tab-container" class="mb-0">
+            <div class="">
+                <nav class="flex flex-col sm:flex-row gap-1" aria-label="Tabs">
+                    <button class="tab-button active" data-tab="scenario1">
+                        Scenario 1: Compliance Guide
+                    </button>
+                    <button class="tab-button" data-tab="scenario2">
+                        Scenario 2: Product Partner
+                    </button>
+                    <button class="tab-button" data-tab="scenario3">
+                        Scenario 3: Leadership Advisor
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Tab Content Panels -->
+        <div id="tab-content-container">
+            <!-- Scenario 1 Content -->
+            <div id="scenario1" class="tab-content active">
+                <div class="context-box">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Scenario 1: Mastering Compliance</h2>
+                    <p class="text-gray-700 mb-4"><strong class="font-semibold">L&D Challenge:</strong> Compliance training (e.g., Anti-Money Laundering/AML, Code of Conduct) is mandatory but often forgotten. Staff struggle to apply the formal rules to real-world, nuanced customer situations, creating potential risks.</p>
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Formal Learning</h3>
+                        <p class="text-gray-700">A new teller has just completed their annual AML e-learning module. To solidify their understanding, they ask the AI:</p>
+                        <p class="prompt">"Summarise the top 5 red flags for a potential structured transaction according to our bank's AML policy."</p>
+                    </div>
+                     <div class="mt-4">
+                        <h3 class="font-semibold text-lg text-gray-800">Experiential Learning</h3>
+                        <p class="text-gray-700">A week later, that same teller faces a tricky situation. Instead of escalating or making a mistake, they discreetly use the AI:</p>
+                        <p class="prompt">"A customer is making a $9,800 cash deposit and seems nervous. What are the immediate steps I should take according to policy? Provide me with some appropriate questions to ask them."</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap justify-center items-center gap-3 md:gap-4 mt-8">
+                    <button class="phase-button" data-title="Idea" data-content="Reduce compliance breaches by providing instant access to policy guidance, turning formal knowledge into correct action." data-reasoning="The biggest compliance risk isn't lack of knowledge, but failure to apply it under pressure. This tool directly targets the moment of uncertainty to prevent errors before they happen.">Idea</button>
+                    <button class="phase-button" data-title="Design/Develop" data-content="Use a 'Retrieval-Augmented Generation' (RAG) model trained only on the bank's internal, approved compliance documents." data-reasoning="This prevents 'hallucinations' and ensures the AI's responses are strictly grounded in our own policies, mitigating the risk of providing incorrect or externally-sourced advice.">Design/Develop</button>
+                    <button class="phase-button" data-title="Implement" data-content="Start with a phased rollout in a high-transaction pilot branch after getting full UAT sign-off from the Compliance team." data-reasoning="A pilot limits initial risk and allows us to gather real-world feedback. Compliance sign-off is non-negotiable as they are the ultimate owners of the risk and policy framework.">Implement</button>
+                    <button class="phase-button" data-title="Monitor" data-content="Track query types and user feedback. Correlate usage data with a reduction in low-level compliance errors in the pilot branch." data-reasoning="Success isn't just usage; it's impact. This provides both qualitative (what are people confused about?) and quantitative (are we actually reducing risk?) data to prove ROI.">Monitor</button>
+                    <button class="phase-button" data-title="Oversight & Report" data-content="Log all conversations for audit. The Compliance & Risk Committee will conduct quarterly reviews of query themes and AI responses." data-reasoning="This establishes a clear governance structure. It ensures ongoing accuracy, provides a defensible audit trail, and uses the AI's data to proactively identify and fix gaps in existing policies or training.">Oversight & Report</button>
+                </div>
+            </div>
+
+            <!-- Scenario 2 Content -->
+            <div id="scenario2" class="tab-content">
+                 <div class="context-box">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Scenario 2: Accelerating Product Readiness</h2>
+                    <p class="text-gray-700 mb-4"><strong class="font-semibold">L&D Challenge:</strong> When the bank launches a new, complex product (e.g., a "First Home Buyer Eco Loan"), the L&D team must train hundreds of lending specialists quickly. A one-off webinar and a PDF guide are often not enough for specialists to feel confident.</p>
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Experiential Learning</h3>
+                        <p class="text-gray-700">A lending specialist wants to practice handling customer objections before a client meeting. They use the AI to simulate a conversation:</p>
+                        <p class="prompt">"Act as a potential first home buyer who is skeptical about the benefits of an 'Eco Loan'. I will explain the product to you. Your goal is to ask me three difficult questions."</p>
+                    </div>
+                     <div class="mt-4">
+                        <h3 class="font-semibold text-lg text-gray-800">Social Learning</h3>
+                        <p class="text-gray-700">After a successful meeting, the specialist asks the AI to help them share their winning technique with their peers:</p>
+                        <p class="prompt">"I just successfully pitched the new Eco Loan by comparing its long-term energy savings to the slightly higher interest rate. Turn this concept into a clear, 3-point summary for our team's SharePoint page."</p>
+                    </div>
+                </div>
+                 <div class="flex flex-wrap justify-center items-center gap-3 md:gap-4 mt-8">
+                    <button class="phase-button" data-title="Idea" data-content="Accelerate sales readiness and confidence, reducing time from product launch to effective customer conversations." data-reasoning="Sales confidence is a lead indicator of performance. Providing a tool for safe practice (role-playing) and instant knowledge retrieval directly boosts this confidence, leading to better customer outcomes.">Idea</button>
+                    <button class="phase-button" data-title="Design/Develop" data-content="Fine-tune a generative AI on the bank's product suite and brand voice, with guardrails to prevent it giving financial advice." data-reasoning="Fine-tuning ensures product accuracy and brand consistency. The guardrails are a critical control to prevent the AI from crossing the line from 'product information' to 'regulated financial advice.'">Design/Develop</button>
+                    <button class="phase-button" data-title="Implement" data-content="Launch the tool as part of the next major product release campaign, including a training session on effective prompting for role-play." data-reasoning="Bundling it with a product launch gives it immediate relevance and drives adoption. Training on prompting is key to ensuring users get value from the AI's more advanced features like simulation.">Implement</button>
+                    <button class="phase-button" data-title="Monitor" data-content="Track adoption rates and time-to-competency for new products. Use surveys to gather qualitative feedback on staff confidence." data-reasoning="A mix of quantitative (adoption, speed) and qualitative (confidence) metrics provides a holistic view of the tool's effectiveness and its direct impact on business goals.">Monitor</button>
+                    <button class="phase-button" data-title="Oversight & Report" data-content="L&D and Product teams will review usage patterns and logs to ensure the AI isn't used to create non-compliant sales material." data-reasoning="This shared oversight model ensures both learning objectives (L&D) and product accuracy (Product) are met. Reviewing logs is a key control to manage the risk of misuse.">Oversight & Report</button>
+                </div>
+            </div>
+
+            <!-- Scenario 3 Content -->
+            <div id="scenario3" class="tab-content">
+                 <div class="context-box">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Scenario 3: Developing New Leaders</h2>
+                    <p class="text-gray-700 mb-4"><strong class="font-semibold">L&D Challenge:</strong> A high-performing employee is promoted to Branch Manager. They have strong technical skills but lack experience in handling difficult leadership situations, such as addressing underperformance.</p>
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Formal Learning</h3>
+                        <p class="text-gray-700">The new manager has taken a course on giving constructive feedback. To refresh their memory, they ask the AI:</p>
+                        <p class="prompt">"Explain the STAR (Situation, Task, Action, Result) model for giving behavioural feedback. Give me an example relevant to a bank teller who has been making minor cash-handling errors."</p>
+                    </div>
+                     <div class="mt-4">
+                        <h3 class="font-semibold text-lg text-gray-800">Experiential Learning</h3>
+                        <p class="text-gray-700">The manager now needs to prepare for the actual conversation. They use the AI as a private sounding board and coach:</p>
+                        <p class="prompt">"I need to have a feedback conversation with an employee about their negative tone with customers. This is our first formal discussion about it. Help me structure the opening of the conversation to be supportive but clear. Provide three different opening statements."</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap justify-center items-center gap-3 md:gap-4 mt-8">
+                    <button class="phase-button" data-title="Idea" data-content="Provide new leaders with a confidential tool to practice and prepare for difficult conversations, accelerating their development." data-reasoning="Leadership is forged in difficult conversations. New leaders often feel isolated; a confidential AI coach provides a safe space to rehearse and build competence before a high-stakes interaction.">Idea</button>
+                    <button class="phase-button" data-title="Design/Develop" data-content="Use a sophisticated conversational AI trained on the bank's leadership framework, with strict data privacy protocols and guardrails against giving legal/HR advice." data-reasoning="Confidentiality is paramount for user trust. The guardrails manage risk by ensuring the AI acts as a coach (guiding thought) rather than a consultant (giving definitive answers), keeping HR in the loop for official advice.">Design/Develop</button>
+                    <button class="phase-button" data-title="Implement" data-content="Integrate the tool into the New Leader Onboarding program after getting approval from HR and Legal." data-reasoning="Embedding it into an official program gives it credibility and structure. HR and Legal sign-off is essential as the tool touches on sensitive employee relations and legal territory.">Implement</button>
+                    <button class="phase-button" data-title="Monitor" data-content="Measure success via anonymous user surveys on confidence, upward feedback scores (360 reviews), and qualitative feedback during mentoring." data-reasoning="Directly asking users about the tool is unreliable. Measuring the *impact* on their leadership effectiveness (via 360s) and confidence provides a much more accurate and meaningful picture of its value.">Monitor</button>
+                    <button class="phase-button" data-title="Oversight & Report" data-content="Senior HR and L&D leaders will review anonymised, aggregated query data to identify systemic leadership challenges." data-reasoning="This balances individual privacy with organisational learning. It turns the AI from just a coaching tool into a strategic diagnostic tool, highlighting common struggles that can be addressed with broader, systemic training initiatives.">Oversight & Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="modal-title" class="text-2xl font-semibold brand-red-text mb-4"></h3>
+            <div>
+                <h4 class="font-semibold text-gray-900">Key Action / Question</h4>
+                <p id="modal-content" class="text-gray-700 mt-1"></p>
+            </div>
+            <div class="reasoning-section">
+                <h4 class="font-semibold text-gray-900">Reasoning</h4>
+                <p id="modal-reasoning" class="text-gray-700 mt-1"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(target).classList.add('active');
+                });
+            });
+
+            // Modal functionality
+            const modal = document.getElementById("info-modal");
+            const modalTitle = document.getElementById("modal-title");
+            const modalContent = document.getElementById("modal-content");
+            const modalReasoning = document.getElementById("modal-reasoning");
+            const closeButton = document.querySelector(".close-button");
+
+            const phaseButtons = document.querySelectorAll(".phase-button");
+
+            function closeAndResetModal() {
+                const currentActive = document.querySelector(".phase-button.active-button");
+                if (currentActive) {
+                    currentActive.classList.remove("active-button");
+                }
+                modal.style.display = "none";
+            }
+
+            phaseButtons.forEach(button => {
+                button.onclick = function() {
+                    // Remove active class from any other button in the same scenario
+                    this.parentElement.querySelectorAll('.phase-button').forEach(btn => btn.classList.remove('active-button'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add("active-button");
+
+                    modalTitle.textContent = this.dataset.title;
+                    modalContent.textContent = this.dataset.content;
+                    modalReasoning.textContent = this.dataset.reasoning;
+                    modal.style.display = "block";
+                }
+            });
+
+            closeButton.onclick = function() {
+                closeAndResetModal();
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    closeAndResetModal();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+
