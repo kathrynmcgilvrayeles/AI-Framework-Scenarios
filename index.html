@@ -41,7 +41,7 @@
         
         .context-box {
             background-color: #fff;
-            padding: 1.5rem;
+            padding: 2rem;
             border-radius: 0 0.75rem 0.75rem 0.75rem;
             border: 1px solid #d1d5db;
             border-top: none;
@@ -134,7 +134,6 @@
         }
         .close-button:hover, .close-button:focus { color: #000; }
         
-        /* Updated Mapping Button Styles */
         .mapping-button-container {
             text-align: center;
             margin-top: 2.5rem;
@@ -196,17 +195,27 @@
             <!-- Scenarios 1 -->
             <div id="scenario1" class="tab-content active">
                 <div class="context-box">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Scenario 1: Mastering Compliance</h2>
-                    <p class="text-gray-700 mb-4"><strong class="font-semibold">L&D Challenge:</strong> Compliance training is mandatory but often forgotten. Staff struggle to apply rules to real-world situations, creating risks.</p>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Scenario 1: Mastering Compliance in the Flow of Work</h2>
+                    <p class="text-gray-700 mb-4"><strong class="font-semibold">L&D Challenge:</strong> Compliance training (e.g., Anti-Money Laundering/AML, Code of Conduct) is mandatory but often forgotten. Staff struggle to apply the formal rules to real-world, nuanced customer situations, creating potential risks.</p>
+                    
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Formal Learning</h3>
+                        <p class="text-gray-600 italic my-2">A new teller has just completed their annual AML e-learning module. To solidify their understanding, they ask the AI:</p>
                         <p class="prompt">"Summarise the top 5 red flags for a potential structured transaction according to our bank's AML policy."</p>
                     </div>
+
                     <div class="mt-4">
                         <h3 class="font-semibold text-lg text-gray-800">Experiential Learning</h3>
-                        <p class="prompt">"A customer is making a $9,800 cash deposit and seems nervous. What are the immediate steps I should take?"</p>
+                        <p class="text-gray-600 italic my-2">A week later, that same teller is faced with a tricky situation. Instead of escalating immediately or making a mistake, they discreetly use the AI:</p>
+                        <p class="prompt">"A customer is making a $9,800 cash deposit and seems nervous. What are the immediate steps I should take according to policy? Provide me with some appropriate questions to ask them without escalating the situation unnecessarily."</p>
+                    </div>
+                    
+                    <div class="mt-6 pt-4 border-t border-gray-200">
+                        <h3 class="font-semibold text-lg text-gray-800">Discussion Question</h3>
+                        <p class="text-gray-700 mt-2"><strong class="font-semibold">Discussion Question:</strong> How does providing immediate, in-the-moment performance support like this change our approach to risk management and reduce the pressure on team leaders?</p>
                     </div>
                 </div>
+
                 <div class="flex flex-wrap justify-center items-center gap-3 md:gap-4 mt-8">
                     <button class="phase-button" data-title="Idea" data-content="Reduce compliance breaches by providing instant access to policy guidance." data-reasoning="The biggest compliance risk is failure to apply knowledge under pressure. This tool targets the moment of uncertainty to prevent errors.">Idea</button>
                     <button class="phase-button" data-title="Design/Develop" data-content="Use a 'RAG' model trained only on the bank's internal, approved compliance documents." data-reasoning="This prevents 'hallucinations' and ensures responses are strictly grounded in our own policies, mitigating risk.">Design/Develop</button>
@@ -221,15 +230,23 @@
             <!-- Scenarios 2 -->
             <div id="scenario2" class="tab-content">
                 <div class="context-box">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Scenario 2: Accelerating Product Readiness</h2>
-                    <p class="text-gray-700 mb-4"><strong class="font-semibold">L&D Challenge:</strong> When a new product is launched, a webinar and a PDF are often not enough for specialists to feel confident.</p>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Scenario 2: Accelerating Product Knowledge and Sales Readiness</h2>
+                    <p class="text-gray-700 mb-4"><strong class="font-semibold">L&D Challenge:</strong> When the bank launches a new, complex product (e.g., a "First Home Buyer Eco Loan"), the L&D team must train hundreds of lending specialists quickly. A one-off webinar and a PDF guide are often not enough for specialists to feel confident.</p>
+
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Experiential Learning</h3>
-                        <p class="prompt">"Act as a skeptical first home buyer. I will explain the new 'Eco Loan' to you. Ask me three difficult questions."</p>
+                        <p class="text-gray-600 italic my-2">A lending specialist wants to practice handling customer objections before a client meeting. They use the AI to simulate a conversation:</p>
+                        <p class="prompt">"Act as a potential first home buyer who is skeptical about the benefits of an 'Eco Loan'. I will explain the product to you. Your goal is to ask me three difficult questions, focusing on interest rates and long-term costs."</p>
                     </div>
                     <div class="mt-4">
                         <h3 class="font-semibold text-lg text-gray-800">Social Learning</h3>
-                        <p class="prompt">"I just successfully pitched the new Eco Loan. Turn my key points into a 3-point summary for our team's SharePoint page."</p>
+                        <p class="text-gray-600 italic my-2">The specialist has a successful client meeting and identifies a brilliant way to explain the loan's benefits. To share this with their team, they ask the AI:</p>
+                        <p class="prompt">"I just successfully pitched the new Eco Loan by comparing its long-term energy savings to the slightly higher interest rate. Turn this concept into a clear, 3-point summary that I can post on our team's SharePoint page to help my colleagues."</p>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-gray-200">
+                         <h3 class="font-semibold text-lg text-gray-800">Discussion Question</h3>
+                         <p class="text-gray-700 mt-2"><strong class="font-semibold">Discussion Question:</strong> Beyond role-playing, in what other ways could this AI 'Partner' be used to foster a culture of continuous, shared learning within sales teams?</p>
                     </div>
                 </div>
                 <div class="flex flex-wrap justify-center items-center gap-3 md:gap-4 mt-8">
@@ -246,15 +263,23 @@
             <!-- Scenarios 3 -->
             <div id="scenario3" class="tab-content">
                 <div class="context-box">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Scenario 3: Developing New Leaders</h2>
-                    <p class="text-gray-700 mb-4"><strong class="font-semibold">L&D Challenge:</strong> A high-performing employee is promoted to manager but lacks experience in handling difficult leadership situations.</p>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Scenario 3: Developing New People Leaders</h2>
+                    <p class="text-gray-700 mb-4"><strong class="font-semibold">L&D Challenge:</strong> A high-performing employee has been promoted to Branch Manager. They have strong technical skills but lack experience in handling difficult leadership situations, such as addressing underperformance.</p>
+                    
                     <div>
                         <h3 class="font-semibold text-lg text-gray-800">Formal Learning</h3>
-                        <p class="prompt">"Explain the STAR model for feedback. Give me an example relevant to a bank teller making minor errors."</p>
+                        <p class="text-gray-600 italic my-2">The new manager has taken a course on giving constructive feedback. To refresh their memory on a specific model, they ask the AI:</p>
+                        <p class="prompt">"Explain the STAR (Situation, Task, Action, Result) model for giving behavioural feedback. Give me an example relevant to a bank teller who has been making minor cash-handling errors."</p>
                     </div>
                     <div class="mt-4">
-                        <h3 class="font-semibold text-lg text-gray-800">Experiential Learning</h3>
-                        <p class="prompt">"I need to have a feedback conversation with an employee about their negative tone. Help me structure the opening to be supportive but clear."</p>
+                        <h3 class="font-semibold text-lg text-gray-800">Experiential & Social Learning</h3>
+                        <p class="text-gray-600 italic my-2">The manager now needs to prepare for the actual conversation. This is the most challenging part. They use the AI as a private sounding board and coach:</p>
+                        <p class="prompt">"I need to have a feedback conversation with an employee about their negative tone with customers. This is our first formal discussion about it. Help me structure the opening of the conversation to be supportive but clear. Provide three different opening statements I could use."</p>
+                    </div>
+
+                     <div class="mt-6 pt-4 border-t border-gray-200">
+                         <h3 class="font-semibold text-lg text-gray-800">Discussion Question</h3>
+                         <p class="text-gray-700 mt-2"><strong class="font-semibold">Discussion Question:</strong> How can providing a confidential AI 'Advisor' for new leaders accelerate their development and improve overall team morale and performance?</p>
                     </div>
                 </div>
                 <div class="flex flex-wrap justify-center items-center gap-3 md:gap-4 mt-8">
@@ -385,7 +410,7 @@
                 <tr>
                     <td><strong>TECHNOLOGY MANAGEMENT</strong></td>
                     <td>A secure instance of the Copilot platform.</td>
-                    <td>Work with IT Security to establish data handling protocols.</td>
+                    <td>Work with IT Security to establish data handling and privacy protocols.</td>
                     <td>Manage a closed user group for access.</td>
                     <td>Ensure the system cannot link queries back to users.</td>
                     <td>Regularly update with the latest HR policies.</td>
